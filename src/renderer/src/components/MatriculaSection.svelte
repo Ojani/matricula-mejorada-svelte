@@ -1,7 +1,6 @@
 <script>
-  import Section from './Section.svelte'
+  import { blur } from "svelte/transition"
+
 </script>
 
-<Section title="Matrícula">
-  <div></div>
-</Section>
+<div transition:blur></div>

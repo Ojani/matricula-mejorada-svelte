@@ -1,9 +1,13 @@
 <script>
+  import { scale } from 'svelte/transition'
   export let current
 </script>
 
-<button on:click class:current>
+<button on:click>
   <slot />
+  {#if current}
+    <div class="arrow" transition:scale></div>
+  {/if}
 </button>
 
 <style>
@@ -22,7 +26,7 @@
     background: var(--bg-light);
   }
 
-  .current::after {
+  .arrow {
     transform: translate(-50%, 50%) rotate(45deg);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
     border-top: 1px solid rgba(255, 255, 255, 0.5);
@@ -31,7 +35,6 @@
     position: absolute;
     height: 1em;
     width: 1em;
-    content: '';
     left: 50%;
     bottom: 0;
   }
