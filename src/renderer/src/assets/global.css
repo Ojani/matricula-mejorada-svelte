@@ -1,0 +1,21 @@
+body {
+    background: var(--bg);
+    font-family: Roboto;
+    color: var(--txt);
+    user-select: none;
+    margin: 0;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --accent: #678d58;
+    --red: #ad343e;
+    --bg: #0a1930;
+    --bg-light: #172a46;
+    --bg-dark: #091120;
+    --txt: #fdfffc;
+  }
