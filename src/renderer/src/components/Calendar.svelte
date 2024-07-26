@@ -26,7 +26,6 @@
 <style>
   .wrapper {
     justify-content: space-between;
-    border: 1px solid var(--bg-dark);
     background: var(--bg);
     border-radius: 0.5em;
     overflow: hidden;
@@ -36,7 +35,7 @@
   }
 
   .day {
-    border-left: 1px solid var(--bg-light);
+    border-left: 1px solid var(--txt-light);
     justify-content: space-between;
     flex-direction: column;
     display: flex;
@@ -49,7 +48,7 @@
   }
 
   .timeBlock {
-    border-bottom: 1px solid var(--bg-light);
+    border-bottom: 1px solid var(--txt-light);
     position: relative;
     height: 100%;
   }
@@ -60,6 +59,9 @@
 
   .hour {
     transform: translate(-50%, -50%);
+    background: var(--bg-light);
+    border-radius: 1em;
+    padding: 0.1em 0.5em;
     margin-left: 0.25em;
     position: absolute;
     font-size: 0.9em;

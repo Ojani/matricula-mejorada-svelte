@@ -54,9 +54,9 @@
   }
 
   .list {
+    border: 1px solid currentColor;
     border-radius: 0 0 0.2em 0.2em;
     background: var(--bg-light);
-    border: 1px solid white;
     flex-direction: column;
     position: absolute;
     overflow: hidden;

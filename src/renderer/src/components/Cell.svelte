@@ -25,7 +25,7 @@
     background: var(--bg);
     display: inline-block;
     font-weight: lighter;
-    border-radius: 0.25em;
+    border-radius: 10em;
     padding: 0.25em 1em;
     align-self: center;
     text-align: center;

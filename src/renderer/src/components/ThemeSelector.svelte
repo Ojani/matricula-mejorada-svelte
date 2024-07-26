@@ -31,7 +31,7 @@
     justify-content: center;
     display: flex;
     height: 100%;
-    gap: 2em;
+    gap: 1.5em;
   }
 
   .themeWrapper {
@@ -57,6 +57,7 @@
   .themeName {
     background: var(--bg-light);
     padding: 0.25em 0.5em;
+    border-radius: 0.25em;
     text-align: center;
     margin: 0;
   }
