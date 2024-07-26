@@ -1,0 +1,59 @@
+<script>
+  import Eye from '../assets/Eye.svg.svelte'
+  import EyeClosed from '../assets/EyeClosed.svg.svelte'
+
+  export let label
+  export let value
+  export let showing = false
+</script>
+
+<div>
+  <label for={label}
+    ><span>{label}</span>
+    <button on:click={() => (showing = !showing)}>
+      {#if showing}
+        <Eye />
+      {:else}
+        <EyeClosed />
+      {/if}
+    </button>
+  </label>
+  {#if showing}
+    <input bind:value type="text" id={label} />
+  {:else}
+    <input bind:value type="password" id={label} />
+  {/if}
+</div>
+
+<style>
+  div {
+    flex-direction: column;
+    border-radius: inherit;
+    display: flex;
+    padding: 1em;
+    gap: 1em;
+  }
+
+  label {
+    justify-content: space-between;
+    font-size: 1.2em;
+    display: flex;
+  }
+
+  input {
+    all: unset;
+    border-bottom: 1px solid currentColor;
+    font-size: 1.2em;
+  }
+
+  button {
+    all: unset;
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: 1px solid currentColor;
+    background: var(--bg-light);
+    border-radius: 0.5em;
+  }
+</style>

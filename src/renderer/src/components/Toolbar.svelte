@@ -65,7 +65,8 @@
     align-items: baseline;
     min-width: 556px;
     display: flex;
-    width: 95%;
+    padding: 1em;
+    width: 100%;
     gap: 1em;
   }
 

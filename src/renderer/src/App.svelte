@@ -4,7 +4,13 @@
   import HomeSection from './components/HomeSection.svelte'
   import MatriculaSection from './components/MatriculaSection.svelte'
   import NavLink from './components/NavLink.svelte'
-  import { currentPage } from './lib/store'
+  import { currentPage, currentTheme } from './lib/store'
+  import SettingsSection from './components/SettingsSection.svelte'
+  import { getParsedTheme } from './lib/themes'
+
+  currentTheme.subscribe((themeIndex) => {
+    document.querySelector(':root').style = getParsedTheme(themeIndex)
+  })
 </script>
 
 <section>
@@ -17,6 +23,9 @@
     <NavLink on:click={() => currentPage.set('Matrícula')} current={$currentPage == 'Matrícula'}
       >Matrícula</NavLink
     >
+    <NavLink on:click={() => currentPage.set('Ajustes')} current={$currentPage == 'Ajustes'}
+      >Ajustes</NavLink
+    >
     {#key $currentPage}
       <h1 in:fly={{ y: '25px' }} out:fly={{ y: '-25px' }}>{$currentPage}</h1>
     {/key}
@@ -25,6 +34,8 @@
     <HomeSection />
   {:else if $currentPage == 'Currículo'}
     <CurriculumSection />
+  {:else if $currentPage == 'Ajustes'}
+    <SettingsSection />
   {:else}
     <MatriculaSection />
   {/if}
@@ -39,7 +50,7 @@
   }
 
   nav {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid var(--txt-light);
     justify-content: left;
     align-items: center;
     position: relative;

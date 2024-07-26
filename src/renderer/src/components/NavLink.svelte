@@ -4,7 +4,9 @@
 </script>
 
 <button on:click>
-  <slot />
+  <p>
+    <slot />
+  </p>
   {#if current}
     <div class="arrow" transition:scale></div>
   {/if}
@@ -26,10 +28,18 @@
     background: var(--bg-light);
   }
 
+  p {
+    transition: transform 0.2s;
+  }
+
+  button:hover p {
+    transform: translateY(-15%);
+  }
+
   .arrow {
     transform: translate(-50%, 50%) rotate(45deg);
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid var(--txt-light);
+    border-top: 1px solid var(--txt-light);
     background: var(--bg);
     pointer-events: none;
     position: absolute;

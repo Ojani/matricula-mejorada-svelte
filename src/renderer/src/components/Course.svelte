@@ -23,7 +23,7 @@
   }
 
   .courseCode {
-    background: var(--bg-light);
+    background: var(--bg);
     padding-left: 2%;
     flex: 25% 0 0;
   }
@@ -34,7 +34,7 @@
   }
 
   .courseCredits {
-    background: var(--bg-light);
+    background: var(--bg);
     text-align: center;
     flex: 10% 0 0;
   }
