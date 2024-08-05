@@ -13,7 +13,8 @@ if (process.contextIsolated) {
     // contextBridge.exposeInMainWorld('api', api)
     contextBridge.exposeInMainWorld('electronAPI', {
       importCurriculum: () => ipcRenderer.send('importCurriculum'),
-      onRecieveCurriculum: (cb) => ipcRenderer.on('recieveCurriculum', (_ev, data) => cb(data))
+      onRecieveCurriculum: (cb) => ipcRenderer.on('recieveCurriculum', (_ev, data) => cb(data)),
+      getSections: (courseCode) => ipcRenderer.invoke('getSections', courseCode)
     })
   } catch (error) {
     console.error(error)

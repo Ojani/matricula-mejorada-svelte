@@ -1,6 +1,7 @@
 <script>
   import Calendar from './Calendar.svelte'
   import Cell from './Cell.svelte'
+  import CourseWatcher from './CourseWatcher.svelte'
   import Section from './Section.svelte'
 </script>
 
@@ -12,7 +13,9 @@
     </Cell>
   </div>
   <div class="sectionDivider">
-    <Cell title="Cursos Bajo Vigilancia"></Cell>
+    <Cell title="Vigilancia de Secciones">
+      <CourseWatcher />
+    </Cell>
   </div>
 </Section>
 

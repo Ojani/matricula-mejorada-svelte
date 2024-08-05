@@ -1,5 +1,6 @@
 {
   "name": "matricula-mejorada-svelte",
+  "type": "module",
   "version": "1.0.0",
   "description": "An Electron application with Svelte",
   "main": "./out/main/index.js",
@@ -20,8 +21,10 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "ansi-to-pre": "^1.0.6",
     "cheerio": "^1.0.0-rc.12",
-    "electron-updater": "^6.1.7"
+    "electron-updater": "^6.1.7",
+    "ssh2": "^1.15.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",

@@ -5,10 +5,7 @@ import formatCurriculum from './scrapedCurriculumFormatter.js'
 import ora from 'ora'
 
 // random hoops that have to be jumped to ge the directory name
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 
 // The aim here is to create a save file that can be used in courseplanner.ojani.dev
 

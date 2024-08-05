@@ -1,11 +1,9 @@
-import { fileURLToPath } from 'url'
-import path, { dirname /*, resolve */ } from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import path from 'path'
 
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { app, BrowserWindow, ipcMain } from 'electron'
 import getUserCurriculum from '../lib/httpCurriculumBuilder/importCurriculimFromPortal.cjs'
+import getWatchedCourseSections from '../lib/sshCourseWatcher/getWatchedSections'
 
 // setting up variables to know which platform we're running on
 // const IS_WINDOWS = process.platform === "win32"
@@ -19,7 +17,7 @@ const createWindow = () => {
     width: 1000,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: path.join(__dirname, '../preload/index.mjs'),
       sandbox: false
     }
   })
@@ -42,6 +40,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.on('importCurriculum', handleImportCurriculum)
+  ipcMain.handle('getSections', getWatchedCourseSections)
 
   createWindow()
 
@@ -56,7 +55,6 @@ app.on('window-all-closed', () => {
 
 // importing curriculum
 async function handleImportCurriculum() {
-  console.log(0)
   const oldPortalLoginWindow = new BrowserWindow({
     width: 700,
     height: 400,

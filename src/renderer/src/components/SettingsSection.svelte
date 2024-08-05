@@ -42,10 +42,10 @@
 <Section>
   <Cell title="Credenciales">
     <div class="form">
-      <FormItem bind:value={studentNumber} label="Número de Estudiante" />
-      <FormItem bind:value={lastFourSSN} label="Últimos Cuatro Dígitos de Seguro Social" />
-      <FormItem bind:value={accessPin} label="Código de Acceso Permanente" />
-      <FormItem bind:value={dateOfBirth} label="Fecha de Nacimiento" />
+      <FormItem bind:value={studentNumber} label="Número de Estudiante" sensitive />
+      <FormItem bind:value={lastFourSSN} label="Últimos 4 Dígitos de Seguro Social" sensitive />
+      <FormItem bind:value={accessPin} label="Código de Acceso Permanente" sensitive />
+      <FormItem bind:value={dateOfBirth} label="Fecha de Nacimiento" sensitive />
       <div class:hideSaveButton class="saveButtonWrapper">
         <Button on:click={save}>Guardar</Button>
       </div>

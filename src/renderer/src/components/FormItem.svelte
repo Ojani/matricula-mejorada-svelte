@@ -4,24 +4,28 @@
 
   export let label
   export let value
-  export let showing = false
+  export let placeholder = ''
+  export let sensitive = false
+  let showing = !sensitive
 </script>
 
 <div>
   <label for={label}
     ><span>{label}</span>
-    <button on:click={() => (showing = !showing)}>
-      {#if showing}
-        <Eye />
-      {:else}
-        <EyeClosed />
-      {/if}
-    </button>
+    {#if sensitive}
+      <button on:click={() => (showing = !showing)}>
+        {#if showing}
+          <Eye />
+        {:else}
+          <EyeClosed />
+        {/if}
+      </button>
+    {/if}
   </label>
   {#if showing}
-    <input bind:value type="text" id={label} />
+    <input bind:value type="text" id={label} {placeholder} />
   {:else}
-    <input bind:value type="password" id={label} />
+    <input bind:value type="password" id={label} {placeholder} />
   {/if}
 </div>
 
