@@ -4,6 +4,7 @@
   import Button from './Button.svelte'
   import { onMount } from 'svelte'
   import ButtonSection from './ButtonSection.svelte'
+  import WatchedSection from './WatchedSection.svelte'
   let showCourseSelector = true
   let lastUpdated = null
   // object of courses, each course has an array full of section objects
@@ -39,10 +40,22 @@
       <Button>Despejar</Button>
     </ButtonSection>
   </div>
-  <div class="courses"></div>
-  {#if showCourseSelector}
+  <div class="courses">
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection isSkeleton></WatchedSection>
+  </div>
+  <!-- {#if showCourseSelector}
     <CourseWatchSearch />
-  {/if}
+  {/if} -->
 </div>
 
 <style>
@@ -54,6 +67,7 @@
     overflow: hidden;
     display: flex;
     height: 100%;
+    gap: 0.75em;
   }
 
   .buttons {
@@ -61,6 +75,9 @@
   }
 
   .courses {
-    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    gap: 1.2em;
   }
 </style>

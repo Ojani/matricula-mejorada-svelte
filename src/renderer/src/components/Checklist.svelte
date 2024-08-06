@@ -57,14 +57,15 @@
 
   .list {
     box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--bg);
     background: var(--bg-light);
     flex-direction: column;
     border-radius: 0.5em;
     position: absolute;
     overflow: hidden;
     display: flex;
-    width: 100%;
     z-index: 10;
+    width: 100%;
     left: 0;
   }
 
