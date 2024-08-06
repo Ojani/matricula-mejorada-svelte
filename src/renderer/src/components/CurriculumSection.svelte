@@ -9,12 +9,14 @@
 
   let renderCurriculum = false
 
-  onMount(() => setTimeout(() => (renderCurriculum = true)))
+  onMount(() => {
+    setTimeout(() => (renderCurriculum = true))
 
-  window.electronAPI.onRecieveCurriculum((curriculum) => {
-    localStorage.setItem('curriculum', JSON.stringify(curriculum))
-    localStorage.setItem('curriculum-last-updated', Date.now())
-    semesters = curriculum
+    window.electronAPI.onRecieveCurriculum((curriculum) => {
+      localStorage.setItem('curriculum', JSON.stringify(curriculum))
+      localStorage.setItem('curriculum-last-updated', Date.now())
+      semesters = curriculum
+    })
   })
 </script>
 

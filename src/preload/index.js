@@ -14,7 +14,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electronAPI', {
       importCurriculum: () => ipcRenderer.send('importCurriculum'),
       onRecieveCurriculum: (cb) => ipcRenderer.on('recieveCurriculum', (_ev, data) => cb(data)),
-      getSections: (courseCode) => ipcRenderer.invoke('getSections', courseCode)
+      getSections: (params) => ipcRenderer.invoke('getSections', params)
     })
   } catch (error) {
     console.error(error)
