@@ -3,6 +3,7 @@
   import Cell from './Cell.svelte'
   import Section from './Section.svelte'
   import FormItem from './FormItem.svelte'
+  import ButtonSection from './ButtonSection.svelte'
   import ThemeSelector from './ThemeSelector.svelte'
   import { onMount } from 'svelte'
 
@@ -47,7 +48,7 @@
       <FormItem bind:value={accessPin} label="Código de Acceso Permanente" sensitive />
       <FormItem bind:value={dateOfBirth} label="Fecha de Nacimiento" sensitive />
       <div class:hideSaveButton class="saveButtonWrapper">
-        <Button on:click={save}>Guardar</Button>
+        <ButtonSection><Button on:click={save}>Guardar</Button></ButtonSection>
       </div>
     </div>
   </Cell>

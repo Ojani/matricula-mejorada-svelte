@@ -1,5 +1,6 @@
 <script>
   import Button from './Button.svelte'
+  import ButtonSection from './ButtonSection.svelte'
   import Checklist from './Checklist.svelte'
   import Select from './Select.svelte'
 
@@ -47,8 +48,10 @@
 </script>
 
 <div class="toolbar">
-  <Button on:click={window.electronAPI.importCurriculum}>Importar Currículo</Button>
-  <div class="filters">
+  <ButtonSection>
+    <Button on:click={window.electronAPI.importCurriculum}>Importar Currículo</Button>
+  </ButtonSection>
+  <ButtonSection>
     <Checklist title="Filtrar por nota" bind:options={gradeChecklistFilterOptions} />
     <Select bind:value={completion}>
       <option value="all">Completados e Incompletados</option>
@@ -56,7 +59,7 @@
       <option value="incomplete">Mostrar Incompletados</option>
     </Select>
     <Button on:click={resetFilters}>Remover filtros</Button>
-  </div>
+  </ButtonSection>
 </div>
 
 <style>
@@ -68,11 +71,5 @@
     padding: 1em;
     width: 100%;
     gap: 1em;
-  }
-
-  .filters {
-    align-items: baseline;
-    display: flex;
-    gap: inherit;
   }
 </style>

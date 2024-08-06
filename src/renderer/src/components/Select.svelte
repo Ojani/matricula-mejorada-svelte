@@ -28,15 +28,17 @@
   }
   select {
     all: unset;
-    padding: 0.35em 0.75em 0.35em 1.35em;
-    border: 1px solid var(--txt);
+    padding: 0.75em 1em 0.75em 1.6em;
     background: var(--bg-light);
     transition: filter 0.2s;
+    border-radius: inherit;
+    box-sizing: border-box;
     display: inline-block;
-    border-radius: 0.2em;
+    white-space: nowrap;
     text-align: center;
     color: var(--txt);
     cursor: pointer;
     font-size: 1em;
+    width: 100%;
   }
 </style>

@@ -1,6 +1,7 @@
 <script>
   import FormItem from './FormItem.svelte'
   import Button from './Button.svelte'
+  import ButtonSection from './ButtonSection.svelte'
   let courseCode = ''
 </script>
 
@@ -8,7 +9,7 @@
   <h2>Buscar Curso</h2>
   <FormItem bind:value={courseCode} label="Código de Curso" placeholder="QUIM3131" />
   <span>
-    <Button>Buscar</Button>
+    <ButtonSection><Button>Buscar</Button></ButtonSection>
   </span>
 </div>
 
@@ -32,6 +33,7 @@
 
   span {
     justify-content: center;
+    --bg-light: var(--bg);
     margin-top: 0.5em;
     display: flex;
     width: 100%;

@@ -5,8 +5,14 @@
   let open = false
 </script>
 
-<button class:open on:mouseenter={() => (open = true)} on:mouseleave={() => (open = false)}>
-  <summary class="button">{title} </summary>
+<div
+  class="wrapper"
+  class:open
+  on:mouseenter={() => (open = true)}
+  on:mouseleave={() => (open = false)}
+  role="tooltip"
+>
+  <summary class="button">{title}</summary>
   {#if open}
     <div class="box" transition:fade={{ duration: 100 }}></div>
     <div
@@ -23,56 +29,48 @@
       {/each}
     </div>
   {/if}
-</button>
+</div>
 
 <style>
-  button {
-    all: unset;
+  .wrapper {
     position: relative;
   }
 
   .button {
-    border: 1px solid var(--txt);
     background: var(--bg-light);
     transition: filter 0.2s;
+    box-sizing: border-box;
+    border-radius: inherit;
     display: inline-block;
-    padding: 0.35em 0.75em;
-    border-radius: 0.2em;
+    padding: 0.75em 1em;
     text-align: center;
     position: relative;
     color: var(--txt);
-    font-size: 1em;
     cursor: pointer;
+    font-size: 1em;
+    width: 100%;
   }
 
-  .button:hover:not(:has(.list:hover)) {
+  .open > .button {
     filter: brightness(0.8);
   }
 
-  .open > summary {
-    border-radius: 0.2em 0.2em 0 0;
-  }
-
   .list {
-    border: 1px solid currentColor;
-    border-radius: 0 0 0.2em 0.2em;
+    box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.5);
     background: var(--bg-light);
     flex-direction: column;
+    border-radius: 0.5em;
     position: absolute;
     overflow: hidden;
-    border-top: none;
     display: flex;
     width: 100%;
     z-index: 10;
-    top: 100%;
     left: 0;
   }
 
   .box {
+    background: linear-gradient(135deg, var(--bg-light) 40%, var(--bg));
     transform: translate(-50%, -50%) rotate(45deg);
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    background: var(--bg-light);
     transition: filter 0.2s;
     position: absolute;
     height: 0.7em;
@@ -83,20 +81,15 @@
     top: 100%;
   }
 
-  .button:hover + .box {
+  .open > .button + .box {
     filter: brightness(0.8);
   }
 
   label {
-    border-top: 1px solid white;
     justify-content: space-between;
     padding: 0.5em 0.5em;
     cursor: pointer;
     display: flex;
-  }
-
-  .list > label:first-child {
-    border-top: none;
   }
 
   .list > label:hover {

@@ -3,6 +3,7 @@
   import Select from './Select.svelte'
   import Button from './Button.svelte'
   import { onMount } from 'svelte'
+  import ButtonSection from './ButtonSection.svelte'
   let showCourseSelector = true
   let lastUpdated = null
   // object of courses, each course has an array full of section objects
@@ -24,17 +25,19 @@
 </script>
 
 <div class="wrapper">
-  <div class="toolbar">
-    <Select bind:value={session}>
-      <option value="2">Primer Semestre</option>
-      <option value="3">Segundo Semestre</option>
-      <option value="1">Primer Verano</option>
-      <option value="4">Segundo Verano</option>
-    </Select>
+  <div class="buttons">
+    <ButtonSection>
+      <Select bind:value={session}>
+        <option value="2">Primer Semestre</option>
+        <option value="3">Segundo Semestre</option>
+        <option value="1">Primer Verano</option>
+        <option value="4">Segundo Verano</option>
+      </Select>
 
-    <Button on:click={handleAddCourse}>Añadir Curso</Button>
-    <Button>Actualizar</Button>
-    <Button>Despejar</Button>
+      <Button on:click={handleAddCourse}>Añadir Curso</Button>
+      <Button>Actualizar</Button>
+      <Button>Despejar</Button>
+    </ButtonSection>
   </div>
   <div class="courses"></div>
   {#if showCourseSelector}
@@ -53,10 +56,8 @@
     height: 100%;
   }
 
-  .toolbar {
-    justify-content: space-between;
-    display: flex;
-    padding: 1em;
+  .buttons {
+    margin: 1em;
   }
 
   .courses {
