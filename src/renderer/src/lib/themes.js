@@ -54,7 +54,7 @@ export const themes = [
     styles: [
       ['--bg', '#000'],
       ['--bg-light', '#6b0f01'],
-      ['--bg-dark', '#1c0401'],
+      ['--bg-dark', '#400902'],
       ['--txt', '#fff'],
       ['--txt-light', 'rgba(255, 255, 255, 0.5)'],
     ]

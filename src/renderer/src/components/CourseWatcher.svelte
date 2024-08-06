@@ -41,17 +41,17 @@
     </ButtonSection>
   </div>
   <div class="courses">
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
-    <WatchedSection isSkeleton></WatchedSection>
+    <WatchedSection></WatchedSection>
+    <WatchedSection></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
+    <WatchedSection></WatchedSection>
+    <WatchedSection sections={null}></WatchedSection>
   </div>
   <!-- {#if showCourseSelector}
     <CourseWatchSearch />

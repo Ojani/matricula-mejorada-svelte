@@ -3,7 +3,6 @@
   import ButtonSection from './ButtonSection.svelte'
   import Pin from '../assets/Pin.svg.svelte'
   import { onMount } from 'svelte'
-  export let isSkeleton = false
   export let sections = [
     {
       courseCode: 'QUIM 3131',
@@ -47,7 +46,7 @@
   ]
 
   // the pinned section will always be the first one in the array
-  $: pinnedSection = sections[0]
+  $: pinnedSection = sections && sections[0]
 
   let showAllSections = true
   let sectionList
@@ -81,26 +80,33 @@
       class="pinnedSection"
       class:showingSections={showAllSections}
     >
-      <ButtonSection>
-        <span
-          on:mouseenter={() => (showAllSections = true)}
-          role="contentinfo"
-          style="flex: 8"
-          class="courseName">{pinnedSection.courseCode}</span
-        >
-        <span style="flex: 4" class="section">{pinnedSection.section}</span>
-        <span style="flex: 5" class="room">{pinnedSection.room}</span>
-        <span style="flex: 5" class="days">{pinnedSection.days}</span>
-        <span style="flex: 3" class="credits">{pinnedSection.credits}</span>
-        <span style="flex: 12" class="professor">{pinnedSection.professor.toLowerCase()}</span>
-        <span style="flex: 5" class="spaces"
-          >{pinnedSection.spacesLeft} / {pinnedSection.spacesAvailable}</span
-        >
-      </ButtonSection>
+      {#if sections}
+        <ButtonSection>
+          <span
+            on:mouseenter={() => (showAllSections = true)}
+            role="contentinfo"
+            style="flex: 8"
+            class="courseName">{pinnedSection.courseCode}</span
+          >
+          <span style="flex: 4" class="section">{pinnedSection.section}</span>
+          <span style="flex: 5" class="room">{pinnedSection.room}</span>
+          <span style="flex: 5" class="days">{pinnedSection.days}</span>
+          <span style="flex: 3" class="credits">{pinnedSection.credits}</span>
+          <span style="flex: 12" class="professor">{pinnedSection.professor.toLowerCase()}</span>
+          <span style="flex: 5" class="spaces"
+            >{pinnedSection.spacesLeft} / {pinnedSection.spacesAvailable}</span
+          >
+        </ButtonSection>
+      {:else}
+        <div class="skeletonSection" in:fly={{ y: -25, delay: appearAbove ? 0 : 100 }}>
+          <span style="flex: 4" class="courseName"></span>
+          <span style="flex: 17" class="section"></span>
+        </div>
+      {/if}
     </div>
   {/key}
 
-  {#if showAllSections}
+  {#if sections && showAllSections}
     <div
       class="sectionList"
       bind:this={sectionList}
@@ -188,6 +194,7 @@
     max-height: 50%;
     width: inherit;
     display: flex;
+    z-index: 1;
   }
 
   .sectionList.appearAbove {
@@ -202,5 +209,37 @@
 
   .unpinnedSection + .unpinnedSection {
     border-top: 1px solid var(--txt-light);
+  }
+
+  .skeletonSection {
+    border-radius: 2em;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .skeletonSection::before {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0)
+    );
+    position: absolute;
+    height: 100%;
+    content: '';
+    width: 20em;
+    left: 1em;
+    animation: skeleton 1.75s linear infinite;
+  }
+
+  @keyframes skeleton {
+    0%,
+    50% {
+      left: -20em;
+    }
+    100% {
+      left: 100%;
+    }
   }
 </style>
