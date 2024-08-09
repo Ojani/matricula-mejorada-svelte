@@ -10,18 +10,20 @@
 </script>
 
 <div>
-  <label for={label}
-    ><span>{label}</span>
-    {#if sensitive}
-      <button on:click={() => (showing = !showing)}>
-        {#if showing}
-          <Eye />
-        {:else}
-          <EyeClosed />
-        {/if}
-      </button>
-    {/if}
-  </label>
+  {#if label}
+    <label for={label}
+      ><span>{label}</span>
+      {#if sensitive}
+        <button on:click={() => (showing = !showing)}>
+          {#if showing}
+            <Eye />
+          {:else}
+            <EyeClosed />
+          {/if}
+        </button>
+      {/if}
+    </label>
+  {/if}
   {#if showing}
     <input bind:value type="text" id={label} {placeholder} />
   {:else}

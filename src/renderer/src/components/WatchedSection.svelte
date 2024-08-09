@@ -48,7 +48,7 @@
   // the pinned section will always be the first one in the array
   $: pinnedSection = sections && sections[0]
 
-  let showAllSections = true
+  let showAllSections = false
   let sectionList
   let appearAbove
   let wrapper
@@ -59,8 +59,6 @@
       sectionList &&
       sectionList.getBoundingClientRect().bottom >
         wrapper.parentElement.parentElement.getBoundingClientRect().bottom
-
-    showAllSections = false
   })
 
   function pinSection(sectionIndex) {
@@ -88,13 +86,41 @@
             style="flex: 8"
             class="courseName">{pinnedSection.courseCode}</span
           >
-          <span style="flex: 4" class="section">{pinnedSection.section}</span>
-          <span style="flex: 5" class="room">{pinnedSection.room}</span>
-          <span style="flex: 5" class="days">{pinnedSection.days}</span>
-          <span style="flex: 3" class="credits">{pinnedSection.credits}</span>
-          <span style="flex: 12" class="professor">{pinnedSection.professor.toLowerCase()}</span>
-          <span style="flex: 5" class="spaces"
-            >{pinnedSection.spacesLeft} / {pinnedSection.spacesAvailable}</span
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 4"
+            class="section">{pinnedSection.section}</span
+          >
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 5"
+            class="room">{pinnedSection.room}</span
+          >
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 5"
+            class="days">{pinnedSection.days}</span
+          >
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 3"
+            class="credits">{pinnedSection.credits}</span
+          >
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 12"
+            class="professor">{pinnedSection.professor?.toLowerCase()}</span
+          >
+          <span
+            on:mouseenter={() => (showAllSections = false)}
+            role="contentinfo"
+            style="flex: 5"
+            class="spaces">{pinnedSection.spacesLeft} / {pinnedSection.spacesAvailable}</span
           >
         </ButtonSection>
       {:else}
@@ -111,7 +137,7 @@
       class="sectionList"
       bind:this={sectionList}
       class:appearAbove
-      transition:fade={{ duration: 100 }}
+      transition:fade={{ duration: 130 }}
     >
       {#each sections as section, sectionIndex (section.section)}
         <!-- Filtering out the pinned section (the first one in ther array) -->

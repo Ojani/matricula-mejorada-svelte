@@ -8,7 +8,8 @@
   let showCourseSelector = true
   let lastUpdated = null
   // object of courses, each course has an array full of section objects
-  let coursesSections = {}
+  let courses = {}
+  $: coursesValues = Object.values(courses)
   let session
 
   function handleAddCourse() {
@@ -20,7 +21,7 @@
   }
 
   onMount(() => {
-    coursesSections = localStorage.getItem('watchedCourses') || {}
+    courses = JSON.parse(localStorage.getItem('watchedCourses')) || {}
     lastUpdated = localStorage.getItem('watchedCourses-last-updated') || null
   })
 </script>
@@ -41,21 +42,14 @@
     </ButtonSection>
   </div>
   <div class="courses">
-    <WatchedSection></WatchedSection>
-    <WatchedSection></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
-    <WatchedSection></WatchedSection>
-    <WatchedSection sections={null}></WatchedSection>
+    {#if coursesValues.length < 10}
+      <CourseWatchSearch bind:courses />
+    {/if}
+    {#each coursesValues as sections}
+      <WatchedSection {sections}></WatchedSection>
+    {/each}
+    <!-- <WatchedSection sections={null}></WatchedSection> -->
   </div>
-  <!-- {#if showCourseSelector}
-    <CourseWatchSearch />
-  {/if} -->
 </div>
 
 <style>

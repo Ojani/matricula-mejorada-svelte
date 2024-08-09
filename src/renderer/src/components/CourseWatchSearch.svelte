@@ -1,41 +1,61 @@
 <script>
   import FormItem from './FormItem.svelte'
   import Button from './Button.svelte'
-  import ButtonSection from './ButtonSection.svelte'
-  let courseCode = ''
+  export let courses
+  let courseCode
+
+  function searchCourse() {
+    courses[courseCode] = null
+  }
 </script>
 
-<div>
-  <h2>Buscar Curso</h2>
-  <FormItem bind:value={courseCode} label="Código de Curso" placeholder="QUIM3131" />
-  <span>
-    <ButtonSection><Button>Buscar</Button></ButtonSection>
+<div class="wrapper">
+  <p style="flex: 4">Añadir Curso</p>
+  <span style="flex: 17">
+    <span class="inputWrapper">
+      <div class="input">
+        <FormItem bind:value={courseCode} placeholder="QUIM3131" />
+      </div>
+    </span>
+    <div class="buttonWrapper">
+      <Button on:click={searchCourse}>Buscar</Button>
+    </div>
   </span>
 </div>
 
 <style>
-  div {
-    box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-    transform: translateX(-50%);
-    background: var(--bg-light);
-    border-radius: inherit;
-    position: absolute;
-    padding: 1.25em 2em;
-    width: 80%;
-    left: 50%;
-    top: 5em;
-  }
-
-  h2 {
-    align-self: flex-start;
-    margin-top: 0;
-  }
-
-  span {
-    justify-content: center;
-    --bg-light: var(--bg);
-    margin-top: 0.5em;
+  .wrapper {
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2em;
+    overflow: hidden;
+    height: 2.75rem;
     display: flex;
+    gap: 0.125em;
+    width: 90%;
+  }
+
+  p {
+    background: var(--bg-dark);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+  }
+  span {
+    justify-content: space-between;
+    display: flex;
+    gap: inherit;
+    gap: 0.125em;
+  }
+
+  .inputWrapper {
+    background: var(--bg-light);
     width: 100%;
+  }
+  .buttonWrapper {
+    --bg-light: var(--bg-dark);
+    align-self: center;
+    width: 25%;
   }
 </style>
