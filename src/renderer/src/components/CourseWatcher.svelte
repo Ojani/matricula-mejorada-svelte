@@ -9,16 +9,7 @@
   let lastUpdated = null
   // object of courses, each course has an array full of section objects
   let courses = {}
-  $: coursesValues = Object.values(courses)
   let session
-
-  function handleAddCourse() {
-    showCourseSelector = true
-    // Focusing on the input after showing it
-    setTimeout(() => {
-      document.querySelector('.wrapper input').focus()
-    })
-  }
 
   onMount(() => {
     courses = JSON.parse(localStorage.getItem('watchedCourses')) || {}
@@ -36,19 +27,25 @@
         <option value="4">Segundo Verano</option>
       </Select>
 
-      <Button on:click={handleAddCourse}>Añadir Curso</Button>
       <Button>Actualizar</Button>
       <Button>Despejar</Button>
     </ButtonSection>
   </div>
   <div class="courses">
-    {#if coursesValues.length < 10}
+    {#if Object.values(courses).length < 10}
       <CourseWatchSearch bind:courses />
     {/if}
-    {#each coursesValues as sections}
-      <WatchedSection {sections}></WatchedSection>
+    {#each Object.entries(courses) as [courseCode, sections] (courseCode)}
+      <WatchedSection {sections} {courseCode}></WatchedSection>
     {/each}
-    <!-- <WatchedSection sections={null}></WatchedSection> -->
+    <WatchedSection sections={null} courseCode="FISI3171"></WatchedSection>
+    <WatchedSection sections={null} courseCode="FISI3172"></WatchedSection>
+    <WatchedSection sections={null} courseCode="MATE3031"></WatchedSection>
+    <WatchedSection sections={null} courseCode="MATE3032"></WatchedSection>
+    <WatchedSection sections={null} courseCode="CIIC4010"></WatchedSection>
+    <WatchedSection sections={null} courseCode="CIIC4020"></WatchedSection>
+    <WatchedSection sections={null} courseCode="CIIC4025"></WatchedSection>
+    <WatchedSection sections={null} courseCode="CIIC4025"></WatchedSection>
   </div>
 </div>
 
@@ -72,6 +69,6 @@
     flex-direction: column;
     align-items: center;
     display: flex;
-    gap: 1.2em;
+    gap: 1.6em;
   }
 </style>

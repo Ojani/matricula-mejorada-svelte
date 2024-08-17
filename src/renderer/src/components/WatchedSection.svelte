@@ -3,6 +3,7 @@
   import ButtonSection from './ButtonSection.svelte'
   import Pin from '../assets/Pin.svg.svelte'
   import { onMount } from 'svelte'
+  export let courseCode
   export let sections = [
     {
       courseCode: 'QUIM 3131',
@@ -48,7 +49,7 @@
   // the pinned section will always be the first one in the array
   $: pinnedSection = sections && sections[0]
 
-  let showAllSections = false
+  let showAllSections = true
   let sectionList
   let appearAbove
   let wrapper
@@ -59,6 +60,8 @@
       sectionList &&
       sectionList.getBoundingClientRect().bottom >
         wrapper.parentElement.parentElement.getBoundingClientRect().bottom
+
+    showAllSections = false
   })
 
   function pinSection(sectionIndex) {
@@ -125,8 +128,15 @@
         </ButtonSection>
       {:else}
         <div class="skeletonSection" in:fly={{ y: -25, delay: appearAbove ? 0 : 100 }}>
-          <span style="flex: 4" class="courseName"></span>
-          <span style="flex: 17" class="section"></span>
+          <ButtonSection>
+            <span style="flex: 8" class="courseName">{courseCode}</span>
+            <span style="flex: 4"><p></p></span>
+            <span style="flex: 5"><p></p></span>
+            <span style="flex: 5"><p></p></span>
+            <span style="flex: 3"><p></p></span>
+            <span style="flex: 12"><p></p></span>
+            <span style="flex: 5"><p></p></span>
+          </ButtonSection>
         </div>
       {/if}
     </div>
@@ -237,14 +247,22 @@
     border-top: 1px solid var(--txt-light);
   }
 
-  .skeletonSection {
-    border-radius: 2em;
-    position: relative;
-    overflow: hidden;
+  .skeletonSection span {
+    justify-content: center;
+    align-items: center;
     display: flex;
   }
 
-  .skeletonSection::before {
+  p {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0.2em;
+    position: relative;
+    overflow: hidden;
+    height: 50%;
+    width: 65%;
+  }
+
+  p::before {
     background: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0),
@@ -254,15 +272,14 @@
     position: absolute;
     height: 100%;
     content: '';
-    width: 20em;
-    left: 1em;
-    animation: skeleton 1.75s linear infinite;
+    width: 100%;
+    animation: skeleton 1.5s linear infinite;
   }
 
   @keyframes skeleton {
     0%,
     50% {
-      left: -20em;
+      left: -100%;
     }
     100% {
       left: 100%;

@@ -6,6 +6,7 @@
 
   function searchCourse() {
     courses[courseCode] = null
+    courseCode = ''
   }
 </script>
 
@@ -57,5 +58,9 @@
     --bg-light: var(--bg-dark);
     align-self: center;
     width: 25%;
+  }
+
+  .buttonWrapper :global(> *) {
+    height: 3em;
   }
 </style>
