@@ -84,5 +84,5 @@ export default async function getWatchedCourseSections({ courseCode, semester })
 }
 
 // ;(async () => {
-//   console.log(await getWatchedCourseSections({ courseCode: 'quim3131', semester: 3 }))
+//   console.log(await getWatchedCourseSections({ courseCode: 'quim3131', semester: 2 }))
 // })()

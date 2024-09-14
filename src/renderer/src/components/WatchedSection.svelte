@@ -1,50 +1,12 @@
 <script>
   import { fade, fly } from 'svelte/transition'
+  import { watchedCourses } from '../lib/store'
   import ButtonSection from './ButtonSection.svelte'
   import Pin from '../assets/Pin.svg.svelte'
   import { onMount } from 'svelte'
   export let courseCode
-  export let sections = [
-    {
-      courseCode: 'QUIM 3131',
-      courseName: 'QUIMICA GENERAL I',
-      section: '010',
-      room: 'Q 245',
-      days: 'LWV',
-      hours: '7:30-8:20',
-      credits: '3',
-      professor: 'MARTHA LOPEZ MORENO',
-      spacesAvailable: 54,
-      spacesTaken: 54,
-      spacesLeft: 0
-    },
-    {
-      courseCode: 'QUIM 3131',
-      courseName: 'QUIMICA GENERAL I',
-      section: '020',
-      room: 'Q 245',
-      days: 'LWV',
-      hours: '7:30-8:20',
-      credits: '3',
-      professor: 'MARTHA LOPEZ MORENO',
-      spacesAvailable: 54,
-      spacesTaken: 54,
-      spacesLeft: 0
-    },
-    {
-      courseCode: 'QUIM 3131',
-      courseName: 'QUIMICA GENERAL I',
-      section: '030',
-      room: 'Q 245',
-      days: 'LWV',
-      hours: '7:30-8:20',
-      credits: '3',
-      professor: 'MARTHA LOPEZ MORENO',
-      spacesAvailable: 54,
-      spacesTaken: 54,
-      spacesLeft: 0
-    }
-  ]
+  export let sections
+  export let semester
 
   // the pinned section will always be the first one in the array
   $: pinnedSection = sections && sections[0]
@@ -54,14 +16,27 @@
   let appearAbove
   let wrapper
 
-  // Making the section list appear above so that it doesn't go out of screen
   onMount(() => {
+    // Making the section list appear above so that it doesn't go out of screen
     appearAbove =
       sectionList &&
       sectionList.getBoundingClientRect().bottom >
         wrapper.parentElement.parentElement.getBoundingClientRect().bottom
 
     showAllSections = false
+
+    // searchiing for course sections if they're not available
+    if (!sections) {
+      window.electronAPI
+        .getSections({ courseCode, semester })
+        .then(({ sectionsObjects, error }) => {
+          if (error) {
+            alert(error)
+          } else {
+            $watchedCourses[courseCode] = sectionsObjects
+          }
+        })
+    }
   })
 
   function pinSection(sectionIndex) {
@@ -87,37 +62,37 @@
             on:mouseenter={() => (showAllSections = true)}
             role="contentinfo"
             style="flex: 8"
-            class="courseName">{pinnedSection.courseCode}</span
+            class="courseName">{courseCode}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
             role="contentinfo"
             style="flex: 4"
-            class="section">{pinnedSection.section}</span
+            class="section">{pinnedSection.section || ''}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
             role="contentinfo"
             style="flex: 5"
-            class="room">{pinnedSection.room}</span
+            class="room">{pinnedSection.room || ''}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
             role="contentinfo"
             style="flex: 5"
-            class="days">{pinnedSection.days}</span
+            class="days">{pinnedSection.days || ''}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
             role="contentinfo"
             style="flex: 3"
-            class="credits">{pinnedSection.credits}</span
+            class="credits">{pinnedSection.credits || ''}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
             role="contentinfo"
             style="flex: 12"
-            class="professor">{pinnedSection.professor?.toLowerCase()}</span
+            class="professor">{pinnedSection.professor?.toLowerCase() || ''}</span
           >
           <span
             on:mouseenter={() => (showAllSections = false)}
@@ -156,11 +131,13 @@
             <button style="flex: 8" class="pinSection" on:click={() => pinSection(sectionIndex)}
               ><Pin /></button
             >
-            <span style="flex: 4" class="section">{section.section}</span>
-            <span style="flex: 5" class="room">{section.room}</span>
-            <span style="flex: 5" class="days">{section.days}</span>
-            <span style="flex: 3" class="credits">{section.credits}</span>
-            <span style="flex: 12" class="professor">{section.professor.toLowerCase()}</span>
+            <span style="flex: 4" class="section">{section.section || ''}</span>
+            <span style="flex: 5" class="room">{section.room || ''}</span>
+            <span style="flex: 5" class="days">{section.days || ''}</span>
+            <span style="flex: 3" class="credits">{section.credits || ''}</span>
+            <span style="flex: 12" class="professor"
+              >{section.professor?.toLowerCase() || ''}</span
+            >
             <span style="flex: 5" class="spaces"
               >{section.spacesLeft} / {section.spacesAvailable}</span
             >

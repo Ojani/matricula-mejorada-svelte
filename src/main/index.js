@@ -3,7 +3,7 @@ import path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { app, BrowserWindow, ipcMain } from 'electron'
 import getUserCurriculum from '../lib/httpCurriculumBuilder/importCurriculimFromPortal.cjs'
-import getWatchedCourseSections from '../lib/sshCourseWatcher/getWatchedSections'
+import getWatchedCourseSections from '../lib/sshCourseWatcher/getWatchedSections.js'
 
 // setting up variables to know which platform we're running on
 // const IS_WINDOWS = process.platform === "win32"
@@ -40,7 +40,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.on('importCurriculum', handleImportCurriculum)
-  ipcMain.handle('getSections', getWatchedCourseSections)
+  ipcMain.handle('getSections', (_, params) => getWatchedCourseSections(params))
 
   createWindow()
 

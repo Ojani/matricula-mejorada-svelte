@@ -1,11 +1,11 @@
 <script>
+  import { watchedCourses } from '../lib/store'
   import FormItem from './FormItem.svelte'
   import Button from './Button.svelte'
-  export let courses
   let courseCode
 
   function searchCourse() {
-    courses[courseCode] = null
+    $watchedCourses[courseCode] = null
     courseCode = ''
   }
 </script>

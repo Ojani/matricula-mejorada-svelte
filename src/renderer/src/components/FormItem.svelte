@@ -2,7 +2,7 @@
   import Eye from '../assets/Eye.svg.svelte'
   import EyeClosed from '../assets/EyeClosed.svg.svelte'
 
-  export let label
+  export let label = null
   export let value
   export let placeholder = ''
   export let sensitive = false
