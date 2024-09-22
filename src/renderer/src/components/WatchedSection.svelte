@@ -25,7 +25,7 @@
 
     showAllSections = false
 
-    // searchiing for course sections if they're not available
+    // searching for course sections if they're not available
     if (!sections) {
       window.electronAPI
         .getSections({ courseCode, semester })
@@ -125,7 +125,7 @@
       transition:fade={{ duration: 130 }}
     >
       {#each sections as section, sectionIndex (section.section)}
-        <!-- Filtering out the pinned section (the first one in ther array) -->
+        <!-- Filtering out the pinned section (the first one in the array) -->
         {#if sectionIndex > 0}
           <div class="unpinnedSection" in:fly={{ y: -25, delay: appearAbove ? 0 : 100 }}>
             <button style="flex: 8" class="pinSection" on:click={() => pinSection(sectionIndex)}
@@ -135,9 +135,7 @@
             <span style="flex: 5" class="room">{section.room || ''}</span>
             <span style="flex: 5" class="days">{section.days || ''}</span>
             <span style="flex: 3" class="credits">{section.credits || ''}</span>
-            <span style="flex: 12" class="professor"
-              >{section.professor?.toLowerCase() || ''}</span
-            >
+            <span style="flex: 12" class="professor">{section.professor?.toLowerCase() || ''}</span>
             <span style="flex: 5" class="spaces"
               >{section.spacesLeft} / {section.spacesAvailable}</span
             >
@@ -204,7 +202,7 @@
     border-radius: 0.5em;
     overflow-y: scroll;
     position: absolute;
-    max-height: 50%;
+    max-height: 40%;
     width: inherit;
     display: flex;
     z-index: 1;

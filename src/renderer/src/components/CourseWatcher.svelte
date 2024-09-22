@@ -44,7 +44,6 @@
     border-radius: 0.5em;
     background: var(--bg);
     position: relative;
-    overflow: hidden;
     display: flex;
     height: 100%;
     gap: 0.75em;

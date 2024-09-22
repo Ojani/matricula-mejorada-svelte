@@ -2,7 +2,9 @@
   import { watchedCourses } from '../lib/store'
   import FormItem from './FormItem.svelte'
   import Button from './Button.svelte'
-  let courseCode
+
+  // automatixally capitalizing course code input
+  $: courseCode = courseCode && courseCode.toUpperCase().slice(0, 10)
 
   function searchCourse() {
     $watchedCourses[courseCode] = null
