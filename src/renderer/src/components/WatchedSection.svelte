@@ -4,14 +4,20 @@
   import ButtonSection from './ButtonSection.svelte'
   import Pin from '../assets/Pin.svg.svelte'
   import { onMount } from 'svelte'
+  import CalendarIcon from '../assets/CalendarIcon.svg.svelte'
+  import CalendarRemoveIcon from '../assets/CalendarRemoveIcon.svg.svelte'
+  import IconButton from './IconButton.svelte'
   export let courseCode
-  export let sections
   export let semester
+  export let course
+
+  $: sections = course?.sections
 
   // the pinned section will always be the first one in the array
   $: pinnedSection = sections && sections[0]
 
   let showAllSections = true
+  let mounted = false // used to prevent the section list from fading slowly instead of disappearing instantly after calculating the bounding client rect
   let sectionList
   let appearAbove
   let wrapper
@@ -25,6 +31,10 @@
 
     showAllSections = false
 
+    // allowing the section list to fade out slowly instead of diappearing
+    // instantly after the bounding client rect has been calculated
+    setTimeout(() => (mounted = true), 200)
+
     // searching for course sections if they're not available
     if (!sections) {
       window.electronAPI
@@ -33,14 +43,21 @@
           if (error) {
             alert(error)
           } else {
-            $watchedCourses[courseCode] = sectionsObjects
+            // showing the course in the calendar by default
+            $watchedCourses[courseCode] = { sections: sectionsObjects, showInCalendar: true }
           }
         })
     }
   })
 
   function pinSection(sectionIndex) {
-    ;[sections[0], sections[sectionIndex]] = [sections[sectionIndex], sections[0]]
+    ;[course.sections[0], course.sections[sectionIndex]] = [sections[sectionIndex], sections[0]]
+    localStorage.setItem('watchedCourses', JSON.stringify($watchedCourses))
+  }
+
+  function addToCalendar() {
+    course.showInCalendar = !course.showInCalendar
+    localStorage.setItem('watchedCourses', JSON.stringify($watchedCourses))
   }
 </script>
 
@@ -50,9 +67,21 @@
   on:mouseleave={() => (showAllSections = false)}
   role="contentinfo"
 >
+  {#key course}
+    <div class="calendarButton" in:fly={{ y: -25 }}>
+      <IconButton on:click={addToCalendar}>
+        {#if course?.showInCalendar}
+          <CalendarRemoveIcon />
+        {:else}
+          <CalendarIcon />
+        {/if}
+      </IconButton>
+    </div>
+  {/key}
+
   {#key pinnedSection}
     <div
-      in:fly={{ y: -25, delay: appearAbove ? 100 : 0 }}
+      in:fly={{ y: -25, delay: appearAbove && showAllSections ? 100 : 0 }}
       class="pinnedSection"
       class:showingSections={showAllSections}
     >
@@ -122,7 +151,7 @@
       class="sectionList"
       bind:this={sectionList}
       class:appearAbove
-      transition:fade={{ duration: 130 }}
+      transition:fade={{ duration: mounted ? 130 : 0 }}
     >
       {#each sections as section, sectionIndex (section.section)}
         <!-- Filtering out the pinned section (the first one in the array) -->
@@ -142,6 +171,10 @@
           </div>
         {/if}
       {/each}
+
+      {#if sections.length < 2}
+        <div class="noOtherSections">No hay más secciones para este curso</div>
+      {/if}
     </div>
   {/if}
 </div>
@@ -150,6 +183,13 @@
   .wrapper {
     border-radius: 2em;
     width: 90%;
+  }
+
+  .calendarButton {
+    transform: translate(-125%, 45%);
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.9;
   }
 
   .pinnedSection {
@@ -220,6 +260,11 @@
 
   .unpinnedSection + .unpinnedSection {
     border-top: 1px solid var(--txt-light);
+  }
+
+  .noOtherSections {
+    text-align: center;
+    padding: 1em;
   }
 
   .skeletonSection span {

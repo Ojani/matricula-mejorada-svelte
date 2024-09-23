@@ -1,7 +1,7 @@
 <script>
   import Eye from '../assets/Eye.svg.svelte'
   import EyeClosed from '../assets/EyeClosed.svg.svelte'
-
+  import IconButton from './IconButton.svelte'
   export let label = null
   export let value
   export let placeholder = ''
@@ -14,13 +14,13 @@
     <label for={label}
       ><span>{label}</span>
       {#if sensitive}
-        <button on:click={() => (showing = !showing)}>
+        <IconButton on:click={() => (showing = !showing)}>
           {#if showing}
             <Eye />
           {:else}
             <EyeClosed />
           {/if}
-        </button>
+        </IconButton>
       {/if}
     </label>
   {/if}
@@ -50,16 +50,5 @@
     all: unset;
     border-bottom: 1px solid currentColor;
     font-size: 1.2em;
-  }
-
-  button {
-    all: unset;
-    cursor: pointer;
-  }
-
-  button:focus {
-    outline: 1px solid currentColor;
-    background: var(--bg-light);
-    border-radius: 0.5em;
   }
 </style>

@@ -3,12 +3,21 @@
   import FormItem from './FormItem.svelte'
   import Button from './Button.svelte'
 
+  // Capping the number of watched courses
+  const MAX_AMOUNT_OF_COURSES = 10
+
   // automatixally capitalizing course code input
   $: courseCode = courseCode && courseCode.toUpperCase().slice(0, 10)
 
   function searchCourse() {
-    $watchedCourses[courseCode] = null
-    courseCode = ''
+    if (Object.keys($watchedCourses).length < MAX_AMOUNT_OF_COURSES) {
+      $watchedCourses[courseCode] = null
+      courseCode = ''
+    } else {
+      alert(
+        `Solo puedes vigilar un máximo de ${MAX_AMOUNT_OF_COURSES} cursos a la vez. Remueve algún curso para añadir otro.`
+      )
+    }
   }
 </script>
 
