@@ -6,14 +6,6 @@
   import ButtonSection from './ButtonSection.svelte'
   import WatchedSection from './WatchedSection.svelte'
   let semester
-
-  // updating local storage every time the courses are updated
-
-  // object of courses, each course has a sections property (an array full of section objects)
-  // and a showInCalendar property (when true, the pinned course appears in the calendar)
-  watchedCourses.subscribe((courses) =>
-    localStorage.setItem('watchedCourses', JSON.stringify(courses))
-  )
 </script>
 
 <div class="wrapper">
@@ -34,8 +26,8 @@
     {#if Object.values($watchedCourses).length < 10}
       <CourseWatchSearch />
     {/if}
-    {#each Object.entries($watchedCourses) as [courseCode, course] (courseCode)}
-      <WatchedSection {course} {semester} {courseCode}></WatchedSection>
+    {#each Object.entries($watchedCourses) as [courseCode, sections] (courseCode)}
+      <WatchedSection {sections} {semester} {courseCode}></WatchedSection>
     {/each}
   </div>
 </div>

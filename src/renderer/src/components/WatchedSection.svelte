@@ -1,6 +1,6 @@
 <script>
   import { fade, fly } from 'svelte/transition'
-  import { watchedCourses } from '../lib/store'
+  import { watchedCourses, coursesInCalendar } from '../lib/store'
   import ButtonSection from './ButtonSection.svelte'
   import Pin from '../assets/Pin.svg.svelte'
   import { onMount } from 'svelte'
@@ -9,9 +9,7 @@
   import IconButton from './IconButton.svelte'
   export let courseCode
   export let semester
-  export let course
-
-  $: sections = course?.sections
+  export let sections
 
   // the pinned section will always be the first one in the array
   $: pinnedSection = sections && sections[0]
@@ -44,20 +42,28 @@
             alert(error)
           } else {
             // showing the course in the calendar by default
-            $watchedCourses[courseCode] = { sections: sectionsObjects, showInCalendar: true }
+            $watchedCourses[courseCode] = sectionsObjects
           }
         })
     }
   })
 
   function pinSection(sectionIndex) {
-    ;[course.sections[0], course.sections[sectionIndex]] = [sections[sectionIndex], sections[0]]
+    ;[sections[0], sections[sectionIndex]] = [sections[sectionIndex], sections[0]]
+    $coursesInCalendar = $coursesInCalendar // making sure the calendar updates
     localStorage.setItem('watchedCourses', JSON.stringify($watchedCourses))
   }
 
-  function addToCalendar() {
-    course.showInCalendar = !course.showInCalendar
-    localStorage.setItem('watchedCourses', JSON.stringify($watchedCourses))
+  function toggleCalendar() {
+    const index = $coursesInCalendar.indexOf(courseCode)
+    // Adding the course to the calendar if it isn't present
+    if (index == -1) {
+      $coursesInCalendar = [...$coursesInCalendar, courseCode]
+    }
+    // removing it otherwise
+    else {
+      $coursesInCalendar = $coursesInCalendar.toSpliced(index, 1)
+    }
   }
 </script>
 
@@ -67,17 +73,21 @@
   on:mouseleave={() => (showAllSections = false)}
   role="contentinfo"
 >
-  {#key course}
-    <div class="calendarButton" in:fly={{ y: -25 }}>
-      <IconButton on:click={addToCalendar}>
-        {#if course?.showInCalendar}
-          <CalendarRemoveIcon />
+  {#if sections}
+    <div class="calendarButton">
+      <IconButton on:click={toggleCalendar}>
+        {#if $coursesInCalendar.includes(courseCode)}
+          <div in:fly={{ y: -15 }}>
+            <CalendarRemoveIcon />
+          </div>
         {:else}
-          <CalendarIcon />
+          <div in:fly={{ y: -15 }}>
+            <CalendarIcon />
+          </div>
         {/if}
       </IconButton>
     </div>
-  {/key}
+  {/if}
 
   {#key pinnedSection}
     <div

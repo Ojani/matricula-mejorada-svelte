@@ -1,11 +1,6 @@
 <script>
   import { currentTheme } from '../lib/store'
   import { themes } from '../lib/themes'
-
-  function changeTheme(themeIndex) {
-    localStorage.setItem('theme', themeIndex)
-    currentTheme.set(themeIndex)
-  }
 </script>
 
 <div class="themes">
@@ -13,7 +8,7 @@
     <button
       class="themeWrapper"
       class:selectedTheme={$currentTheme == i}
-      on:click={() => changeTheme(i)}
+      on:click={() => ($currentTheme = i)}
     >
       <div class="themeName">{theme.name}</div>
       <div class="themeColors">

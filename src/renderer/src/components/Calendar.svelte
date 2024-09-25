@@ -1,7 +1,19 @@
 <script>
+  import { coursesInCalendar, watchedCourses } from '../lib/store'
+  import CalendarItem from './CalendarItem.svelte'
   export let from = 6
   export let to = 20
+  let sectionDays = []
+
   $: hours = to - from + 1
+  $: {
+    sectionDays = []
+    for (let courseCode of $coursesInCalendar) {
+      for (let day of $watchedCourses[courseCode][0].days) {
+        sectionDays.push([courseCode, day])
+      }
+    }
+  }
 
   const formatHour = (hour) => `${(hour % 12) + 1}:00${hour > 10 ? 'pm' : 'am'}`
 </script>
@@ -21,6 +33,10 @@
       {/each}
     </div>
   {/each}
+
+  {#each sectionDays as [courseCode, day] (courseCode + $watchedCourses[courseCode][0].section + day)}
+    <CalendarItem section={$watchedCourses[courseCode][0]} {courseCode} {day} {from} />
+  {/each}
 </div>
 
 <style>
@@ -28,6 +44,7 @@
     justify-content: space-between;
     background: var(--bg);
     border-radius: 0.5em;
+    position: relative;
     overflow: hidden;
     display: flex;
     height: 100%;
